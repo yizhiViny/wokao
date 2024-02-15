@@ -13,17 +13,7 @@
       "version": "9.2.2"
     },
     {
-      "name": "away3d",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "format",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "markdown",
+      "name": "flixel",
       "type": "haxelib",
       "version": null
     },
