@@ -8,61 +8,6 @@
       "url": "https://github.com/mcagabe19-stuff/lime"
     },
     {
-      "name": "flixel",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hxCodec",
-      "type": "haxelib",
-      "version": "2.6.0"
-    },
-    {
-      "name": "faxe",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "polymod",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hscript",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "linc_luajit",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "flixel-ui",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "markdown",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "nape-haxe4",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "HtmlParser",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "webgl",
-      "type": "haxelib",
-      "version": null
-    },
-    {
       "name": "openfl",
       "type": "haxelib",
       "version": "9.2.2"
@@ -79,16 +24,6 @@
     },
     {
       "name": "markdown",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "newgrounds",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "flixel-addons",
       "type": "haxelib",
       "version": null
     },
@@ -117,11 +52,6 @@
       "dir": null,
       "ref": "main",
       "url": "https://github.com/MAJigsaw77/extension-androidtools.git"
-    },
-    {
-      "name": "flxanimate",
-      "type": "haxelib",
-      "version": null
     }
   ]
-    }
+}
