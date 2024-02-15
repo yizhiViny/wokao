@@ -1,6 +1,5 @@
 package game.system;
 
-import game.system.util.FunkinInit;
 #if android
 import flixel.input.android.FlxAndroidKey;
 import android.content.Context;
