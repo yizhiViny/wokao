@@ -127,7 +127,7 @@ class ModdingScreen extends meta.states.MusicBeatState
 			switch (options[curSelected][0])
 			{
 				case "Open in Explorer":
-					CDevConfig.utils.openFolder("./cdev-mods/"+Paths.currentMod+"/", true);
+					FlxG.switchState(new SongListEditor());
 				case "Add Song Chart":
 					FlxG.switchState(new SongEditor());
 				case "Freeplay Editor":
