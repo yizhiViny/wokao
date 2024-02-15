@@ -36,6 +36,15 @@ jobs:
           haxelib setup ~/haxelib
           haxelib --quiet install hmm
           haxelib run hmm install --quiet
+          haxelib install flixel-ui --quiet
+          haxelib install flixel-addons --quiet
+          haxelib install hscript --quiet
+          haxelib install hxCodec
+          haxelib install newgrounds 1.4.0 --quiet
+          haxelib git faxe https://github.com/uhrobots/faxe --quiet
+          haxelib git polymod https://github.com/larsiusprime/polymod.git --quiet
+          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
+          haxelib git flixel-addons https://github.com/HaxeFlixel/flixel-addons
       - name: Configure Android
         run: |
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
