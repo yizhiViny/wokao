@@ -18,11 +18,6 @@
       "version": "2.6.0"
     },
     {
-      "name": "hscript-improved",
-      "type": "haxelib",
-      "version": null
-    },
-    {
       "name": "faxe",
       "type": "haxelib",
       "version": null
