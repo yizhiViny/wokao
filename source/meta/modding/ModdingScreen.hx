@@ -2,6 +2,7 @@ package meta.modding;
 
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import game.cdev.CDevConfig;
 import meta.modding.song_editor.SongEditor;
 import meta.modding.freeplay_editor.SongListEditor;
 import flixel.FlxState;
