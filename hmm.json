@@ -13,6 +13,11 @@
       "version": null
     },
     {
+      "name": "hxCodec",
+      "type": "haxelib",
+      "version": "2.6.0"
+    },
+    {
       "name": "hscript-improved",
       "type": "haxelib",
       "version": null
@@ -79,6 +84,11 @@
     },
     {
       "name": "markdown",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "newgrounds",
       "type": "haxelib",
       "version": null
     },
