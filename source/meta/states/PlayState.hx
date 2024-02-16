@@ -366,7 +366,6 @@ class PlayState extends MusicBeatState
 		Conductor.updateSettings();
 
 		ScriptSupport.currentMod = fromMod;
-		ScriptSupport.parseSongConfig();
 		scripts = new ScriptData(ScriptSupport.scripts, curSong, this);
 		scripts.loadFiles();
 
