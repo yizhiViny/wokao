@@ -62,13 +62,6 @@ class ScriptSupport
 	public static var currentMod:String = "Funkin Mod";
 	public static var playStated:PlayState = new PlayState();
 
-	public static function parseSongConfig()
-	{
-		var songConf = SongConfScript.parse(PlayState.SONG.song.toLowerCase());
-
-		scripts = songConf.scripts;
-	}
-
 	public static function setScriptDefaultVars(script:CDevScript, mod:String, ?song:String, ?state:PlayState)
 	{
 		var curState:Dynamic = FlxG.state;
