@@ -36,8 +36,6 @@ class SongConfScript
 		}
 
 		scripts = getScript(folder, mod);
-
-		var additScript:Array<CDevModScript> = getScript("cdev-mods/"+mod+"/scripts/", mod);
 		
 		if (scripts.length == 0)
 		{
@@ -60,7 +58,6 @@ class SongConfScript
 
 	public static function getScript(folder:String, mod:String){
 		var scripts:Array<CDevModScript> = [];
-		var insideTheThing:Array<String> = FileSystem.readDirectory(folder);
 
 		var notAllowed:Array<String> = ["unknown", "intro", "outro"];
 		//if (isScripts) notAllowed = ["unknown"];
