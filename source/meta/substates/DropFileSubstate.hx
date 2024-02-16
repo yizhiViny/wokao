@@ -6,6 +6,7 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import game.cdev.log.GameLog;
 import flixel.FlxG;
+import haxe.android.media.FileChooser;
 
 using StringTools;
 
@@ -31,6 +32,10 @@ class DropFileSubstate extends MusicBeatSubstate {
         var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
         bg.alpha = 0.1;
         add(bg);
+
+	var fileChooser = new FileChooser(FileChooser.TYPE_CUSTOM);
+        fileChooser.addFilter("OGG", "*.ogg");
+        fileChooser.show(function(file:File)
 
         var text:FlxText = new FlxText(0, 0, -1, 'DROP .$dataType FILE TO THIS WINDOW.', 24);
 		text.setFormat("VCR OSD Mono", 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
