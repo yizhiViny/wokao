@@ -64,7 +64,7 @@ class ScriptSupport
 
 	public static function parseSongConfig()
 	{
-		var songConf = SongConfScript.parse(currentMod, PlayState.SONG.song.toLowerCase());
+		var songConf = SongConfScript.parse(PlayState.SONG.song.toLowerCase());
 
 		scripts = songConf.scripts;
 	}
