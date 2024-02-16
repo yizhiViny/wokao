@@ -45,15 +45,6 @@ class SongConfScript
 					daMod: mod
 				}
 			];
-		}
-
-		for (i in additScript){
-			scripts.push(i);
-		}
-
-		return {
-			scripts: scripts,
-		};
 	}
 
 	public static function getScript(folder:String, mod:String){
@@ -61,7 +52,6 @@ class SongConfScript
 
 		var notAllowed:Array<String> = ["unknown", "intro", "outro"];
 		//if (isScripts) notAllowed = ["unknown"];
-		if (insideTheThing != null)
 		{
 			for (object in insideTheThing)
 			{
