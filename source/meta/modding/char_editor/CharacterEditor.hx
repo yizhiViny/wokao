@@ -1,5 +1,6 @@
 package meta.modding.char_editor;
 
+import game.cdev.log.GameLog;
 import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxButtonPlus;
 import game.cdev.CDevPopUp;
@@ -67,6 +68,7 @@ class CharacterEditor extends meta.states.MusicBeatState
 	var fromPlayState:Bool = false;
 	var camFollow:FlxObject;
 
+	var healthBar:FlxSprite;
 	var healthBarBG:FlxSprite;
 	var healthIcon:HealthIcon;
 
@@ -445,8 +447,12 @@ class CharacterEditor extends meta.states.MusicBeatState
 	{
 		healthBarBG = new FlxSprite(30, FlxG.height - 78).loadGraphic(Paths.image("healthBar", 'shared'));
 		healthBarBG.antialiasing = CDevConfig.saveData.antialiasing;
+		
+		healthBar = new FlxSprite(healthBarBG.x+2, healthBarBG.y+2).makeGraphic(Std.int(healthBarBG.width-4), Std.int(healthBarBG.height-4),FlxColor.WHITE);
+		healthBar.antialiasing = CDevConfig.saveData.antialiasing;
+		add(healthBar);
 		add(healthBarBG);
-
+		
 		healthIcon = new HealthIcon(charJSON.iconName, false);
 		add(healthIcon);
 
@@ -455,14 +461,15 @@ class CharacterEditor extends meta.states.MusicBeatState
 		updateHealthBarDisplay();
 
 		healthBarBG.cameras = [camHUD];
+		healthBar.cameras = [camHUD];
 		healthIcon.cameras = [camHUD];
 	}
 
 	function updateHealthBarDisplay(updateHealthIconToo:Bool = false)
 	{
-		if (healthBarBG != null && healthIcon != null)
+		if (healthBar != null && healthIcon != null)
 		{
-			healthBarBG.color = FlxColor.fromRGB(charJSON.healthBarColor[0], charJSON.healthBarColor[1], charJSON.healthBarColor[2]);
+			healthBar.color = FlxColor.fromRGB(charJSON.healthBarColor[0], charJSON.healthBarColor[1], charJSON.healthBarColor[2]);
 			if (updateHealthIconToo)
 				healthIcon.changeDaIcon(charJSON.iconName);
 		}
@@ -476,6 +483,8 @@ class CharacterEditor extends meta.states.MusicBeatState
 	var stepper_healthBarC1:FlxUINumericStepper;
 	var stepper_healthBarC2:FlxUINumericStepper;
 	var stepper_healthBarC3:FlxUINumericStepper;
+
+	var butt_getColor:FlxUIButton;
 
 	var stepper_charXPos:FlxUINumericStepper;
 	var stepper_charYPos:FlxUINumericStepper;
@@ -520,6 +529,16 @@ class CharacterEditor extends meta.states.MusicBeatState
 		stepper_healthBarC3 = new FlxUINumericStepper(150, 120, 15, 0, 0, 255, 1);
 		stepper_healthBarC3.value = charJSON.healthBarColor[2];
 		stepper_healthBarC3.name = "step_hBar3";
+
+		butt_getColor = new FlxUIButton(stepper_healthBarC3.x + stepper_healthBarC3.width + 10, stepper_healthBarC3.y, "Get Icon Color", function()
+		{
+			var col:FlxColor = FlxColor.fromInt(CDevConfig.utils.getColor(healthIcon));
+			stepper_healthBarC1.value = charJSON.healthBarColor[0] = col.red;
+			stepper_healthBarC2.value = charJSON.healthBarColor[1] = col.green;
+			stepper_healthBarC3.value = charJSON.healthBarColor[2] = col.blue;
+			updateHealthBarDisplay();
+		}, true, false, 0xFF686868);
+		butt_getColor.setLabelFormat(null, 8, FlxColor.WHITE);
 
 		// THECHARPOSSHITS
 		stepper_charXPos = new FlxUINumericStepper(220, 50, 10, 0, -5000, 5000, 1);
@@ -589,6 +608,7 @@ class CharacterEditor extends meta.states.MusicBeatState
 		tab_group_char.add(stepper_healthBarC1);
 		tab_group_char.add(stepper_healthBarC2);
 		tab_group_char.add(stepper_healthBarC3);
+		tab_group_char.add(butt_getColor);
 		tab_group_char.add(stepper_charXPos);
 		tab_group_char.add(stepper_charYPos);
 		tab_group_char.add(cXYTxt);

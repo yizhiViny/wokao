@@ -1,5 +1,7 @@
 package game.cdev;
 
+import sys.io.File;
+import haxe.Json;
 import game.song.Song.SwagSong;
 import meta.substates.CustomSubstate;
 import meta.states.MusicBeatState;
@@ -31,6 +33,13 @@ using StringTools;
 
 enum TemplateData {
 	CHART;
+	DISCORD;
+}
+
+typedef DiscordJson = {
+	var clientID:String; //client id, take it from discord developer portal
+	var imageKey:String; //big image
+	var imageTxt:String; //idk
 }
 
 /**
@@ -38,6 +47,9 @@ enum TemplateData {
  */
 class CDevUtils
 {
+	/**
+	 * Chart Template, like, just a template.
+	 */
 	public var CHART_TEMPLATE:SwagSong = {
 		song: 'Your Song',
 		notes: [],
@@ -53,10 +65,42 @@ class CDevUtils
 		validScore: false
 	};
 
+	/**
+	 * Discord RPC Template
+	 */
+	public var RPC_TEMPLATE:DiscordJson = {
+		clientID: CDevConfig.RPC_ID,
+		imageKey: 'icon',
+		imageTxt: 'CDEV Engine v.' + CDevConfig.engineVersion
+	};
+
+	/**
+	 * Contains bunch of blacklisted names for a folder / file in Windows.
+	 */
+	public var BLACKLISTED_NAMES:Array<String> = [
+		"CON", "PRN", "AUX", "NUL",
+		"COM1", "COM2", "COM3", "COM4",
+		"COM5", "COM6", "COM7", "COM8",
+		"COM9", "LPT1", "LPT2", "LPT3",
+		"LPT4", "LPT5", "LPT6", "LPT7",
+		"LPT8", "LPT9"
+	];
+
+	
+	/**
+	 * Contains bunch of blacklisted names for a folder / file in Windows.
+	 */
+	public var BLACKLISTED_SYMBOLS:Array<String> = [
+		"<",">",":","\"","/","\\","|","?","*"
+	];
+	
+
 	public function getTemplate(type:TemplateData):Dynamic {
 		switch (type){
 			case CHART:
 				return CHART_TEMPLATE;
+			case DISCORD:
+				return RPC_TEMPLATE;
 		}
 		return null;
 	}
@@ -127,6 +171,44 @@ class CDevUtils
 	}
 
 	/**
+	 * Checks if `str` contains anything inside `CDevUtils.BLACKLISTED_SYMBOLS` array.
+	 * @param str String to check. 
+	 * @return Result.
+	 */
+	public function containsBlockedSymbol(str:String):Bool{
+		for (i in BLACKLISTED_SYMBOLS){
+			if (str.contains(i)) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Auto-Capitalizing every words in a string.
+	 * @param str Your String.
+	 * @return Capitalized string.
+	 */
+	public function capitalize(str:String):String {
+		var words = str.split(" ");
+		for (i in 0...words.length) {
+			var word = words[i];
+			words[i] = word.substring(0, 1).toUpperCase() + word.substring(1);
+		}
+		return words.join(" ");
+	}
+
+	/**
+	 * Checks if `str` matches anything inside `CDevUtils.BLACKLISTED_NAMES` array.
+	 * @param str String to check. 
+	 * @return Result.
+	 */
+	public function isBlockedWord(str:String):Bool{
+		for (i in BLACKLISTED_NAMES){
+			if (i.toLowerCase() == str.toLowerCase()) return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Bounds `toConvert` to `min` and `max`, shortcut to `FlxMath.bound`
 	 * @param toConvert 
 	 * @param min 
@@ -136,6 +218,23 @@ class CDevUtils
 	public function bound(toConvert:Float, min:Float, max:Float):Float
 	{
 		return FlxMath.bound(toConvert, min, max); // ye
+	}
+
+	/**
+	 * Custom RPC ID based on `mod`
+	 * @return DiscordJson
+	 */
+	public function getRpcJSON():DiscordJson
+	{
+		var path:String = Paths.modsPath + "/" + Paths.currentMod +"/data/game/Discord.json";
+		trace("Looking for Discord.json in: " + path);
+		if (FileSystem.exists(path)){
+			trace("File Exists!");
+			var a:DiscordJson = cast Json.parse(File.getContent(path));
+			return a;
+		}
+		trace("Couldn't find any.");
+		return getTemplate(DISCORD);
 	}
 
 	/**
@@ -409,6 +508,21 @@ class CDevUtils
 		#else
 		FlxG.openURL(url);
 		#end
+	}
+
+	public function openFolder(folder:String, useAbsolutePath:Bool = false) {
+		var path:String = folder;
+		if (!useAbsolutePath) 
+			path =  Sys.getCwd() + '$folder';
+
+		path = Path.normalize(path);
+		path = path.replace('/', '\\');
+		
+		if (path.endsWith('/')) 
+			path.substr(0, path.length - 1);
+
+		Sys.command("explorer.exe", [path]);
+		trace('Execute: explorer.exe $path');
 	}
 
 	/**

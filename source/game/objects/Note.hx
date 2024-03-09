@@ -24,6 +24,7 @@ class Note extends FlxSprite
 
 	public var script:CDevScript = null;
 	var gotScript:Bool = false;
+	public var noteArgs:Array<String> = ["",""];
 
 	public var noteType:String = "Default Note";
 
@@ -35,6 +36,10 @@ class Note extends FlxSprite
 	public var tooLate:Bool = false;
 	public var wasGoodHit:Bool = false;
 	public var prevNote:Note;
+
+	//chart editor stuffs
+	public var rawNoteData:Int = 0;
+	public var noteStep:Int = 0;
 
 	public var isPixelSkinNote:Bool = false;
 
@@ -88,12 +93,16 @@ class Note extends FlxSprite
 	public var strumParent:StrumArrow;
 	var calcStepH:Bool = true;
 
-	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?MustCalcStepHeight:Bool = true, ?noteTyp:String = "Default Note")
+	// hell of arguments
+	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?MustCalcStepHeight:Bool = true, ?noteTyp:String = "Default Note", ?noteArg:Array<String>)
 	{
 		super();
 
 		if (prevNote == null)
 			prevNote = this;
+
+		if (noteArg != null)
+			noteArgs = noteArg;
 
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
@@ -122,7 +131,7 @@ class Note extends FlxSprite
 				script.loadFile(scriptPath);
 				
 				if (gotScript)
-					script.executeFunc("create", []);
+					script.executeFunc("create", noteArgs);
 			} else{
 				if (!noteTypeFail.contains(noteType))
 				{
@@ -138,6 +147,13 @@ class Note extends FlxSprite
 			if (noteType == "No Animation")
 				noAnim = true;
 		}
+	}
+
+	public function disableScript(){
+		if (script == null) return;
+		script.destroy();
+		script = null;
+		gotScript = false;
 	}
 
 	public function initialize(){
@@ -299,7 +315,7 @@ class Note extends FlxSprite
 	function calculateNoteStepHeight()
 	{
 		if (!isTesting)
-			noteStepHeight = (((0.45 * Conductor.stepCrochet)) * FlxMath.roundDecimal(CDevConfig.saveData.scrollSpeed == 1 ? PlayState.SONG.speed : CDevConfig.saveData.scrollSpeed,
+			noteStepHeight = (((0.45 * Conductor.stepCrochet)) * FlxMath.roundDecimal(CDevConfig.saveData.scrollSpeed == 1 && PlayState.SONG != null ? PlayState.SONG.speed : CDevConfig.saveData.scrollSpeed,
 				2));
 	}
 

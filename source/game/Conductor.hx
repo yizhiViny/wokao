@@ -92,7 +92,7 @@ class Conductor
 			totalSteps += deltaSteps;
 			totalPos += ((60 / curBPM) * 1000 / 4) * deltaSteps;
 		}
-		trace("new BPM map BUDDY " + bpmChangeMap);
+		if (bpmChangeMap.length > 0) trace("new BPM map BUDDY " + bpmChangeMap);
 	}
 
 	public static function changeBPM(newBpm:Float, ?alsoChangeLast:Bool=false)
@@ -102,5 +102,19 @@ class Conductor
 
 		crochet = ((60 / bpm) * 1000);
 		stepCrochet = crochet / 4;
+	}
+
+	public static function getStepByTime(time:Float) {
+		var bpmChange:BPMChangeEvent = {
+			stepTime: 0,
+			songTime: 0,
+			bpm: bpm
+		};
+
+		for(change in bpmChangeMap)
+			if (change.songTime < time && change.songTime >= bpmChange.songTime)
+				bpmChange = change;
+
+		return bpmChange.stepTime + ((time - bpmChange.songTime) / ((60 / bpmChange.bpm) * (1000/4)));
 	}
 }

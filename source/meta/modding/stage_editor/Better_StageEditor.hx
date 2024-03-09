@@ -488,11 +488,8 @@ class Better_StageEditor extends MusicBeatState
 		addSpriteButton.setLabelFormat(null, 8, FlxColor.WHITE, CENTER);
 
 		tab_stage_spr.add(selectAllButton);
-		trace("exist: " + (selectAllButton != null) + " | Pos: " + "x: " + selectAllButton.x + ", y: " + selectAllButton.y);
 		tab_stage_spr.add(removeObject);
-		trace("exist: " + (removeObject != null) + " | Pos: " + "x: " + removeObject.x + ", y: " + removeObject.y);
 		tab_stage_spr.add(addSpriteButton);
-		trace("exist: " + (addSpriteButton != null) + " | Pos: " + "x: " + addSpriteButton.x + ", y: " + addSpriteButton.y);
 
 		bfDropDown = new UIDropDown(10, addSpriteButton.y + 35, UIDropDown.makeStrIdLabelArray(charList, true), function(character:String)
 		{
@@ -788,7 +785,6 @@ class Better_StageEditor extends MusicBeatState
 						spr = dad;
 				}
 			}
-			trace(spr);
 			if (spr != null)
 			{
 				var theColor:Int = 0xFFFFFFFF;
@@ -1302,7 +1298,7 @@ class Better_StageEditor extends MusicBeatState
 			try
 			{
 				File.saveContent('$path.json', Json.stringify(__STAGE_JSON));
-				var t = new CDevPopUp("Info", "File saved sucessfully on:\n" + path + ".json", [
+				var t = new CDevPopUp("Info", "File saved sucessfully under your mod's /data/stages/ folder.", [
 					{
 						text: "OK",
 						callback: function()
