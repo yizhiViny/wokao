@@ -25,14 +25,8 @@ class WebviewSubstate extends MusicBeatSubstate {
         add(newText);
         newText.screenCenter();
 
-        wv = new WebView(false);
-        wv.setTitle("FunkinWebView");
-        wv.setSize(FlxG.width, FlxG.height, NONE);
-        wv.navigate(url);
-
         Thread.createWithEventLoop(()->{
             if (exit) return;
-            wv.run();
         });
     }
 
@@ -48,8 +42,6 @@ class WebviewSubstate extends MusicBeatSubstate {
     }
 
     public function onSubExit() {
-        wv.terminate();
-        wv.destroy();
         exit = true;
         FlxG.autoPause = CDevConfig.saveData.autoPause;
     }
