@@ -2739,11 +2739,6 @@ class PlayState extends MusicBeatState
 		}
 		scoreTxt.text = scoreText;
 
-		//RPC Related stuff
-		daRPCInfo = '${config.scoreText}: ' + songScore + " | " + '${config.missesText}: ' + misses + ' | ' + '${config.accuracyText}: '
-			+ RatingsCheck.fixFloat(accuracy, 2) + "% (" + ratingText + ')';
-		if (songStarted) DiscordClient.changePresence(detailsText, (CDevConfig.saveData.botplay ? "Botplay" : daRPCInfo), iconRPC, true, songLength - Conductor.songPosition);
-
 		bgScore.setGraphicSize(Std.int(((scoreTxt.size * 0.59) * scoreTxt.text.length) + 3), Std.int(scoreTxt.height + 3));
 		bgScore.screenCenter(X);
 		bgScore.y = scoreTxt.y - 2;
