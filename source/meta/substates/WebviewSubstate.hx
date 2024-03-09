@@ -6,7 +6,6 @@ import flixel.FlxSprite;
 import flixel.FlxG;
 import lime.app.Application;
 import sys.thread.Thread;
-import webview.WebView;
 
 //todo: Fix game not responding after calling this substatte
 class WebviewSubstate extends MusicBeatSubstate {
